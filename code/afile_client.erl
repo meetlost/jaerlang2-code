@@ -22,4 +22,3 @@ get_file(Server, File) ->
 	{Server, Content} ->
 	    Content
     end.
-
