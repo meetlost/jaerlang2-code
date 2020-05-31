@@ -73,7 +73,9 @@
 	 unconsult/2,
 	 my_tuple_to_list/1,
 	 my_time_func/1,
-	 my_date_string/0]).
+	 my_date_string/0,
+	 count_characters/1,
+	 map_search_pred/2]).
 
 -export([complete/2, 
 	 skip_blanks/1, trim_blanks/1, sleep/1, split_at_char/2,
@@ -766,3 +768,24 @@ format_date_time(X) when X < 10 ->
 	"0" ++ integer_to_list(X);
 format_date_time(X) ->
 	integer_to_list(X).
+
+count_characters(Str) ->
+	count_characters(Str, #{}).
+
+count_characters([H|T], X) ->
+	case maps:find(H, X) of
+		{ok, N} -> count_characters(T, X#{ H := N+1 });
+		error -> count_characters(T, X#{ H => 1 })
+	end;
+count_characters([], X) ->
+	X.
+
+map_search_pred(Map, Pred) when erlang:is_map(Map) ->
+	map_search_pred(maps:to_list(Map), Pred);
+map_search_pred([{Key,Value}|T], Pred) ->
+	case Pred(Key, Value) of
+		true -> {Key, Value};
+		_ -> map_search_pred(T, Pred)
+	end;
+map_search_pred([], _) ->
+	error.
