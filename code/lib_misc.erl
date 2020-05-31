@@ -70,7 +70,10 @@
 	 term2file/2,
 	 file2term/1,
 	 longest_common_prefix/1,
-	 unconsult/2]).
+	 unconsult/2,
+	 my_tuple_to_list/1,
+	 my_time_func/1,
+	 my_date_string/0]).
 
 -export([complete/2, 
 	 skip_blanks/1, trim_blanks/1, sleep/1, split_at_char/2,
@@ -735,3 +738,31 @@ bad_function(A, _) ->
 
 deliberate_error1(A) ->
     bad_function(A, 12).
+
+my_tuple_to_list(T) ->
+	Size = tuple_size(T),
+	for(1, Size, fun(X) -> element(X, T) end).
+
+my_time_func(F) ->
+	Start = erlang:timestamp(),
+	F(),
+	End = erlang:timestamp(),
+	Start1 = element(1, Start) * math:pow(1000, 4) + element(2, Start) * math:pow(1000, 2) + element(3, Start),
+	End1 = element(1, End) * math:pow(1000, 4) + element(2, End) * math:pow(1000, 2) + element(3, End),
+	io:format("~p microseconds~n", [End1 - Start1]).
+
+my_date_string() ->
+	Date = tuple_to_list(erlang:date()),
+	Date1 = lists:join("-", [ format_date_time(X) || X <- Date ]),
+	Date2 = lists:foldl(fun(X, Str) -> Str ++ X end, "", Date1),
+
+	Time = tuple_to_list(erlang:time()),
+	Time1 = lists:join(":", [ format_date_time(X) || X <- Time ]),
+	Time2 = lists:foldl(fun(X, Str) -> Str ++ X end, "", Time1),
+
+	Date2 ++ " " ++ Time2.
+
+format_date_time(X) when X < 10 ->
+	"0" ++ integer_to_list(X);
+format_date_time(X) ->
+	integer_to_list(X).

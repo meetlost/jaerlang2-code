@@ -10,4 +10,6 @@
 -export([area/1]). 
 
 area({rectangle, Width, Height}) -> Width * Height;
+area({circle, Radious})          -> 3.14159 * Radious * Radious;
+area({hypot, X, Y})              -> math:sqrt(X*X + Y*Y);
 area({square, Side})             -> Side * Side.
