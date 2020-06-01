@@ -42,3 +42,12 @@ lookup(N) ->
 	     1 -> {'EXIT', a};
 	     2 -> exit(a)
 	  end.
+
+demo4(Filename) ->
+    try myfile:read(Filename)
+    catch
+        _:X:S -> [
+            {user, "Can not read file '" ++ Filename ++ "'."},
+            {programmer, {X, S}}
+        ]
+    end.
