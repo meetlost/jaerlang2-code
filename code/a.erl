@@ -15,7 +15,7 @@
 loop(Tag) ->
     sleep(),
     Val = b:x(),
-    io:format("Vsn1 (~p) b:x() = ~p~n",[Tag, Val]),
+    io:format("Vsn3 (~p) b:x() = ~p~n",[Tag, Val]),
     loop(Tag).
 
 sleep() ->
