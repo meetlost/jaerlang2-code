@@ -10,4 +10,4 @@
 -export([start/0]).
 
 start() ->
-    io:format("hello, world~n").
+    io:format("Hello, world~n").

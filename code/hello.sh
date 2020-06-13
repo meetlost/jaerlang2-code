@@ -7,6 +7,5 @@
 # We make no guarantees that this code is fit for any purpose. 
 # Visit http://www.pragmaticprogrammer.com/titles/jaerlang2 for more book information.
 #---
-erl -noshell -pa /home/joe/2012/book/JAERLANG/Book/code\
+erl -noshell -pa /Users/by/projects/jaerlang2-code/code\
              -s hello start -s init stop
-
