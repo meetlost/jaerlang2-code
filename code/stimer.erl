@@ -7,10 +7,13 @@
 %%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang2 for more book information.
 %%---
 -module(stimer).
+
 -export([start/2, cancel/1]).
 
 start(Time, Fun) -> spawn(fun() -> timer(Time, Fun) end).
+
 cancel(Pid) -> Pid ! cancel.
+
 timer(Time, Fun) ->
     receive
 	cancel ->

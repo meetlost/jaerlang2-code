@@ -7,11 +7,14 @@
 %%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang2 for more book information.
 %%---
 -module(clock).
+
 -export([start/2, stop/0]).
 
 start(Time, Fun) -> 
     register(clock, spawn(fun() -> tick(Time, Fun) end)).
+
 stop() -> clock ! stop.
+
 tick(Time, Fun) ->
     receive
 	stop ->

@@ -6,14 +6,16 @@
 %%  We make no guarantees that this code is fit for any purpose. 
 %%  Visit http://www.pragmaticprogrammer.com/titles/jaerlang2 for more book information.
 %%---
--module(area_server1).  
--export([loop/0, rpc/2]). 
+-module(area_server1).
+-export([loop/0, rpc/2]).
+
 rpc(Pid, Request) ->
     Pid ! {self(), Request},
     receive
 	Response ->
 	    Response
     end.
+
 loop() ->
     receive
 	{From, {rectangle, Width, Ht}} -> 
@@ -26,7 +28,3 @@ loop() ->
 	    From ! {error,Other},
 	    loop()
     end.
-
-
-     
-

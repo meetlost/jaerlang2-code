@@ -78,3 +78,13 @@ all_funs([H|T], M) ->
     end;
 all_funs([], M) ->
     maps:to_list(M).
+
+-spec start(AnAtom, Fun) -> AnAtom when
+    AnAtom :: atom(),
+    Fun :: fun().
+
+start(AnAtom, Fun) ->
+    case whereis(AnAtom) of
+        undefined -> register(AnAtom, spawn(Fun));
+        _ -> error
+    end.

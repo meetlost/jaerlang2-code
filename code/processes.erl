@@ -36,8 +36,3 @@ wait() ->
 
 for(N, N, F) -> [F()];
 for(I, N, F) -> [F()|for(I+1, N, F)].
-
-    
-	    
-			   
-    
