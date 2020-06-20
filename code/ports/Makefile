@@ -12,9 +12,8 @@ example1:  example1.c erl_comm.c example1_driver.c
 	gcc -o example1 example1.c erl_comm.c example1_driver.c
 
 example1_drv.so: example1_lid.c example1.c
-	gcc -I /usr/local/lib/erlang/usr/include\
-            -o example1_drv.so -fpic -shared example1.c example1_lid.c
+	gcc -I /Users/by/local/pkgs/erlang/OTP-22.1.4/lib/erlang/usr/include\
+            -o example1_drv.so -fpic -shared -flat_namespace -undefined suppress example1.c example1_lid.c
 
 clean:
 	rm example1 example1_drv.so *.beam
-
