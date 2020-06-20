@@ -1,2 +1,2 @@
 # jaerlang2-code
-Book Erlang
+Programming Erlang, Second Edition
