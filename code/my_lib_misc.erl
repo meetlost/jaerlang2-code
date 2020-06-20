@@ -221,3 +221,7 @@ get_worker_list(M) ->
 %% M = my_lib_misc:manager_init([1,2,3], fun my_lib_misc:worker/1, one_for_one).
 %% my_lib_misc:get_worker_list(M).
 %% exit(erlang:list_to_pid("<0.84.0>"), kill).
+
+cpu_type() ->
+    CPU_TYPE = os:cmd("uname -m"),
+    CPU_TYPE -- "\n".
