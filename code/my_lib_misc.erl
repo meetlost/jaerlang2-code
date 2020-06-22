@@ -225,3 +225,12 @@ get_worker_list(M) ->
 cpu_type() ->
     CPU_TYPE = os:cmd("uname -m"),
     CPU_TYPE -- "\n".
+
+is_mod_need_recompile(Mod) ->
+    ErlTime = filelib:last_modified(erlang:atom_to_list(Mod) ++ ".erl"),
+    BEAMTime = filelib:last_modified(erlang:atom_to_list(Mod) ++ ".beam"),
+    ErlTime > BEAMTime.
+
+md5(File) ->
+    {ok, Data} = file:read_file(File),
+    erlang:md5(Data).
