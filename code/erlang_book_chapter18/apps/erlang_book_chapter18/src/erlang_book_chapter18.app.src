@@ -1,0 +1,18 @@
+{application, erlang_book_chapter18,
+ [
+  {description, "Chapter 18 of <<Programming Erlang>>, Second Edition."},
+  {vsn, "1.0.0"},
+  {registered, []},
+  {mod, {erlang_book_chapter18, []}},
+  {applications,
+   [
+	kernel,
+	stdlib,
+	cowboy,
+	jsx
+   ]},
+  {env,[]},
+  {modules, []},
+  {licenses, ["BSD"]},
+  {links, []}
+ ]}.

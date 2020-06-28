@@ -1,0 +1,11 @@
+# erlang_book_chapter18
+Chapter 18 of <<Programming Erlang>>, Second Edition.
+
+# init
+$ cp -a config.example config
+
+# compile
+$ rebar3 compile
+
+# dev
+$ rebar3 shell

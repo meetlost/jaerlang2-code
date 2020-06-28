@@ -1,0 +1,1 @@
+-define(APP_NAME, erlang_book_chapter18).
