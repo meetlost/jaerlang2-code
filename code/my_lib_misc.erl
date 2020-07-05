@@ -234,3 +234,25 @@ is_mod_need_recompile(Mod) ->
 md5(File) ->
     {ok, Data} = file:read_file(File),
     erlang:md5(Data).
+
+parse_bin_pid(BinPid) ->
+    XLen = 1,
+    FlagLen = 1,
+    IDLen = 4,
+    SerialLen = 4,
+    CreationLen = 1,
+    NodeLen = erlang:byte_size(BinPid) - (XLen + FlagLen + IDLen + SerialLen + CreationLen),
+    <<
+        X:XLen/binary, % What is this?
+        Flag:FlagLen/binary,
+        Node:NodeLen/binary,
+        ID:IDLen/binary,
+        Serial:SerialLen/binary,
+        Creation:CreationLen/binary
+    >> = BinPid,
+    {X, Flag, Node, ID, Serial, Creation}.
+
+test_parse_bin_pid() ->
+    Pid = erlang:self(),
+    Bin = erlang:term_to_binary(Pid),
+    parse_bin_pid(Bin).
