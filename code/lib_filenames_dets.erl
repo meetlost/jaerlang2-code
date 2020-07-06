@@ -47,4 +47,5 @@ test() ->
     file:delete("./filenames.dets"),
     open("./filenames.dets"),
     F = lib_files_find:files(".", "*.erl", true),
-    lists:foreach(fun(I) -> filename2index(list_to_binary(I)) end, F).
+    lists:foreach(fun(I) -> filename2index(list_to_binary(I)) end, F),
+	close().
