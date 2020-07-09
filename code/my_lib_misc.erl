@@ -256,3 +256,43 @@ test_parse_bin_pid() ->
     Pid = erlang:self(),
     Bin = erlang:term_to_binary(Pid),
     parse_bin_pid(Bin).
+
+my_ets_example() ->
+    {ok, L} = file:list_dir(code:lib_dir()),
+    LibPathList = [ code:lib_dir(re:replace(LibNameFull, "-.*", "", [{return, list}])) || LibNameFull <- L ],
+    LibList = [
+        [ erlang:list_to_binary(X) || X <- lib_files_find:files(LibPath ++ "/ebin", "*.beam", false) ]
+        ||
+        LibPath <- LibPathList
+    ],
+    LibList1 = lists:flatten(LibList),
+    ModList = [
+        erlang:list_to_atom(
+            filename:basename(erlang:binary_to_list(Name), ".beam")
+        )
+        ||
+        Name <- LibList1
+    ],
+    List = [
+        [ {X, Mod} || X <- erlang:apply(Mod, module_info, [exports]) ]
+        ||
+        Mod <- ModList
+    ],
+    List1 = lists:flatten(List),
+
+    %% for ets
+    TableName = my_ets_example,
+    TableId = ets:new(TableName, [bag]),
+    lists:foreach(fun(X) -> ets:insert(TableId, X) end, List1),
+    Ret = ets:lookup(TableId, {map,2}),
+    io:format("{map,2} ets lookup: ~p~n", [Ret]),
+    ets:delete(TableId),
+
+    %% for dets
+    {ok, TableName} = dets:open_file(TableName, [{file, TableName}, {type, bag}]),
+    lists:foreach(fun(X) -> dets:insert(TableName, X) end, List1),
+    Ret1 = dets:lookup(TableName, {map,2}),
+    io:format("{map,2} dets lookup: ~p~n", [Ret1]),
+    dets:close(TableName),
+
+    ok.
