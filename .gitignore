@@ -1,3 +1,4 @@
 code/*.beam
 code/*/*.beam
 TAGS
+lib_otp
