@@ -19,7 +19,7 @@ loop(Dir) ->
 	    Full = filename:join(Dir, File),
 	    Client ! {self(), file:read_file(Full)};
 	{Client, {put_file, File, Content}} ->
-		Full = filename:join(Dir, File),
-		Client ! {self(), file:write_file(Full, Content)}
+            Full = filename:join(Dir, File),
+            Client ! {self(), file:write_file(Full, Content)}
     end,
     loop(Dir).
