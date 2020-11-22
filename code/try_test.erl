@@ -33,8 +33,12 @@ demo2() ->
 demo3() ->
     try generate_exception(5) 
     catch
-       error:X ->
-	    {X, erlang:get_stacktrace()}
+        %% Before OTP 23
+        %% error:X ->
+        %%      {X, erlang:get_stacktrace()}
+        %% After OTP 23
+        Class:Reason:Stacktrace ->
+            {Class, Reason, Stacktrace}
     end.
 	
 lookup(N) ->
