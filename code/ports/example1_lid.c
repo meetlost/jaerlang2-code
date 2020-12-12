@@ -15,6 +15,9 @@ typedef struct {
     ErlDrvPort port;
 } example_data;
 
+int sum(int x, int y);
+int twice(int x);
+
 static ErlDrvData example_drv_start(ErlDrvPort port, char *buff)
 {
     example_data* d = (example_data*)driver_alloc(sizeof(example_data));
